@@ -11,7 +11,7 @@ const TabBar = ({ setType, type }) => (
 
         <TabBarItem type={type} title="Completed" setType={() => setType('Completed')}/>
 
-        <TabBarItem type={type} title="Favorites" setType={() => setType('Favorite')}/>
+        <TabBarItem type={type} title="Favorite" setType={() => setType('Favorite')}/>
 
     </View>
 )
