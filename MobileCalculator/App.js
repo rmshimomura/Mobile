@@ -65,6 +65,7 @@ class App extends Component {
           multiply={this.multiply}
           displayValue={result}
           divide={this.divide}
+          clear={this.clear}
         />
       </View>
     );
