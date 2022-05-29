@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { Component } from 'react'
 import Calculator from './Calculator';
+import { LinearGradient } from 'expo-linear-gradient';
 
 class App extends Component {
 
@@ -50,7 +51,14 @@ class App extends Component {
 
     return (
       <View style={styles.container}>
-        <Calculator displayValue={this.state.result}/>
+
+        <LinearGradient
+          colors={['rgb(83, 105, 118)', 'rgb(41,46,73)']}
+          style={styles.background}
+        >
+        </LinearGradient>
+        <Text style={styles.head}>Calculator</Text>
+        <Calculator displayValue={result}/>
       </View>
     );
 
@@ -60,9 +68,23 @@ class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  head: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: 'white',
+    zIndex: 100,
+    fontFamily: 'monospace',
+  },
+  background: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: '100%',
   },
 });
 

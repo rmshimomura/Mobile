@@ -1,12 +1,20 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Grid from './Grid';  
+import Interface from './Interface';  
+import Display from './Display';
 
 const Calculator = (add, subtract, multiply, divide, clear, displayValue) => {
 
     return (
         <View>
-            <Grid add={add} subtract={subtract} multiply={multiply} divide={divide} clear={clear} displayValue={displayValue}/>
+            <Interface 
+                add={add} 
+                subtract={subtract}
+                multiply={multiply} 
+                divide={divide} 
+                clear={clear} 
+                displayValue={displayValue}
+            />
         </View>
     );
     
