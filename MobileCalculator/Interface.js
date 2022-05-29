@@ -4,32 +4,34 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import Button from './Button';
 import Display from './Display';
 
-const Interface = (add, subtract, multiply, divide, clear, displayValue) => {
+const Interface = (props) => {
+
+    console.log(props)
 
     return (
 
         <View style={style.container}>
 
-            <Display value={displayValue} />
+            <Display value={props.displayValue} />
 
 
-            <Button label="AC" executeFunction={clear} triple />
-            <Button label="/" executeFunction={divide} operation />
-            <Button label="7" executeFunction={add} />
-            <Button label="8" executeFunction={add} />
-            <Button label="9" executeFunction={add} />
-            <Button label="*" executeFunction={multiply} operation />
-            <Button label="4" executeFunction={add} />
-            <Button label="5" executeFunction={add} />
-            <Button label="6" executeFunction={add} />
-            <Button label="-" executeFunction={subtract} operation />
-            <Button label="1" executeFunction={add} />
-            <Button label="2" executeFunction={add} />
-            <Button label="3" executeFunction={add} />
-            <Button label="+" executeFunction={add} operation />
-            <Button label="0" executeFunction={add} double />
-            <Button label="." executeFunction={add} />
-            <Button label="=" executeFunction={add} operation />
+            <Button label="AC" executeFunction={props.clear} triple />
+            <Button label="/" executeFunction={props.divide} operation />
+            <Button label="7" executeFunction={props.add} />
+            <Button label="8" executeFunction={props.add} />
+            <Button label="9" executeFunction={props.add} />
+            <Button label="*" executeFunction={props.multiply} operation />
+            <Button label="4" executeFunction={props.add} />
+            <Button label="5" executeFunction={props.add} />
+            <Button label="6" executeFunction={props.add} />
+            <Button label="-" executeFunction={props.subtract} operation />
+            <Button label="1" executeFunction={props.add} />
+            <Button label="2" executeFunction={props.add} />
+            <Button label="3" executeFunction={props.add} />
+            <Button label="+" executeFunction={props.add} operation />
+            <Button label="0" executeFunction={props.add} double />
+            <Button label="." executeFunction={props.add} />
+            <Button label="=" executeFunction={props.add} operation />
 
         </View>
 

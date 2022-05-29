@@ -23,14 +23,25 @@ const style = StyleSheet.create({
         backgroundColor: '#0004',
         display: 'flex',
         justifyContent: 'flex-end',
-        alignItems: 'center',
-        padding: 20,
-        fontSize: 40,
+        alignItems: 'flex-end',
+        paddingRight: 5,
         overflow: 'hidden',
         width: '100%',
+
         borderColor: '#888',
         borderWidth: 1,
         borderStyle: 'solid',
+        textAlign: 'right',
+    },
+
+    displayValue: {
+
+        color: '#fff',
+        fontSize: 60,
+        fontWeight: 'bold',
+        paddingRight: 30,
+        fontFamily: 'monospace',
+        
     }
     
 })

@@ -12,7 +12,7 @@ class App extends Component {
       num1: '',
       num2: '',
     };
-  
+
     this.add = this.add.bind(this);
     this.subtract = this.subtract.bind(this);
     this.multiply = this.multiply.bind(this);
@@ -53,12 +53,19 @@ class App extends Component {
       <View style={styles.container}>
 
         <LinearGradient
-          colors={['rgb(83, 105, 118)', 'rgb(41,46,73)']}
+          colors={['#4b6cb7', '#182848']}
           style={styles.background}
+          start={[1, 1]} end={[0, 0]}
         >
         </LinearGradient>
         <Text style={styles.head}>Calculator</Text>
-        <Calculator displayValue={result}/>
+        <Calculator
+          add={this.add}
+          subtract={this.subtract}
+          multiply={this.multiply}
+          displayValue={result}
+          divide={this.divide}
+        />
       </View>
     );
 

@@ -3,17 +3,17 @@ import { View, StyleSheet } from 'react-native';
 import Interface from './Interface';  
 import Display from './Display';
 
-const Calculator = (add, subtract, multiply, divide, clear, displayValue) => {
+const Calculator = (props) => {
 
     return (
         <View>
             <Interface 
-                add={add} 
-                subtract={subtract}
-                multiply={multiply} 
-                divide={divide} 
-                clear={clear} 
-                displayValue={displayValue}
+                add={props.add} 
+                subtract={props.subtract}
+                multiply={props.multiply} 
+                divide={props.divide} 
+                clear={props.clear} 
+                displayValue={props.displayValue}
             />
         </View>
     );
