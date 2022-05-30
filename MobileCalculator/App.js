@@ -1,17 +1,17 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { Component } from 'react'
-import Calculator from './Calculator';
+import Calculator from './components/Calculator.js';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const initialState = {
 
-  displayValue: '0',
-  clearDisplay: false,
-  previousOperation: null,
-  operation: null,
-  values: [null, null],
-  currentPositionOnValues: 0,
-  originalValue: 0
+  displayValue: '0', // The value that is currently being displayed on the screen
+  clearDisplay: false, // A flag that indicates whether the display should be cleared or not
+  previousOperation: null, // The last operation that was performed
+  operation: null, // The current operation that is being performed
+  values: [null, null], // The values that are currently being used
+  currentPositionOnValues: 0, // The current position on the values array
+  originalValue: 0 // The original value that is being used
 
 }
 
@@ -34,8 +34,6 @@ class App extends Component {
 
   addDigit(digit) {
 
-    console.log(digit)
-
     if (digit === "." && this.state.displayValue.includes('.')) {
 
       // Prevent double decimals
@@ -48,12 +46,15 @@ class App extends Component {
     /* 
         Boolean value saying if it's necessary to clear the display
         True if the currentValue display value is 0 or the variable this.state.clearDisplay is set to true
+        This is the case the user wants to write a new number, or if the user wants to clear the display
     */
 
     const currentValue = clearDisplay ? '' : this.state.displayValue
 
     /* 
         currentValue shows the 'cleared' value or the display value
+        If the display value is 0, it will be an empty string
+        If the display value is not 0, it will be the display value
     */
 
     const displayValue = currentValue + digit
@@ -62,11 +63,11 @@ class App extends Component {
 
     if (digit !== '.') {
 
-      const i = this.state.currentPositionOnValues
-      const newValue = parseFloat(displayValue)
-      const values = [...this.state.values]
-      values[i] = newValue
-      this.setState({ values: values })
+      const i = this.state.currentPositionOnValues // The current position on the values array
+      const newValue = parseFloat(displayValue) // The new value that is being added to the array
+      const values = [...this.state.values] // The values array
+      values[i] = newValue // The new value is added to the array
+      this.setState({ values: values }) // The values array is updated
 
     }
 
@@ -75,15 +76,26 @@ class App extends Component {
   setOperation(operation) {
 
     if (this.state.currentPositionOnValues === 0) {
+      // The user is setting the first value as well as the operation
 
-      this.setState({ operation: operation, currentPositionOnValues: 1, clearDisplay: true, previousOperation: operation })
+      if(this.state.values[0] === null) {
+
+        let values = [...this.state.values]
+        values[0] = parseFloat(this.state.displayValue)
+        this.setState({ values: values })
+
+      }
+
+      this.setState({ operation: operation, currentPositionOnValues: 1, clearDisplay: true, previousOperation: operation }) 
 
     } else if (this.state.previousOperation !== null && this.state.values[1] === null && (operation === '+' || operation === '-' || operation === '*' || operation === '/')) {
 
+      // The user is changing the operation
       this.setState({ operation: operation, previousOperation: operation })
 
     } else {
 
+      // The user is setting the second value with the previous operation
       let originalValue = this.state.originalValue
 
       if (this.state.values[1] !== null) {
@@ -110,7 +122,7 @@ class App extends Component {
 
       if (currentOperation !== '=' && currentOperation !== null) previousOperation = currentOperation
 
-      const values = [...this.state.values]
+      let values = [...this.state.values]
 
       if (values[1] === null) this.previousOperation = operation
 
@@ -155,9 +167,9 @@ class App extends Component {
         {
           displayValue: values[0],
           operation: equals ? null : operation,
-          currentPositionOnValues: values[0] !== 0 ? 1 : 0,
+          currentPositionOnValues: 1,
           clearDisplay: !equals,
-          values,
+          values: values,
           previousOperation,
           originalValue
         }
