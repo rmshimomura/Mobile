@@ -10,9 +10,9 @@ const Button = (props) => {
 
     if (props.operation) {
 
-
         return (
-            <TouchableHighlight onPress={props.executeFunction}>
+
+            <TouchableHighlight onPress={() => props.executeFunction(props.label)}>
 
                 <View style={[style.button, style.operation]}>
 
@@ -29,7 +29,7 @@ const Button = (props) => {
 
         return (
 
-            <TouchableHighlight onPress={props.executeFunction}>
+            <TouchableHighlight onPress={() => props.executeFunction(props.label)}>
                 <View style={[style.button, style.double]}>
 
                     <Text style={style.text}>
@@ -46,7 +46,7 @@ const Button = (props) => {
 
         return (
 
-            <TouchableHighlight onPress={props.executeFunction}>
+            <TouchableHighlight onPress={() => props.executeFunction()}>
                 <View style={[style.button, style.triple]}>
 
                     <Text style={style.text}>
@@ -62,7 +62,7 @@ const Button = (props) => {
 
         return (
 
-            <TouchableHighlight onPress={props.executeFunction} activeOpacity={0.8}>
+            <TouchableHighlight onPress={() => props.executeFunction(props.label)} activeOpacity={0.8}>
                 <View style={[style.button]}>
 
 

@@ -3,51 +3,200 @@ import React, { Component } from 'react'
 import Calculator from './Calculator';
 import { LinearGradient } from 'expo-linear-gradient';
 
+const initialState = {
+
+  displayValue: '0',
+  clearDisplay: false,
+  previousOperation: null,
+  operation: null,
+  values: [null, null],
+  currentPositionOnValues: 0,
+  originalValue: 0
+
+}
+
 class App extends Component {
-
+  
   constructor(props) {
+    
     super(props);
-    this.state = {
-      result: 0,
-      num1: '',
-      num2: '',
-    };
-
-    this.add = this.add.bind(this);
-    this.subtract = this.subtract.bind(this);
-    this.multiply = this.multiply.bind(this);
-    this.divide = this.divide.bind(this);
+    
+    this.state = { ...initialState }
     this.clear = this.clear.bind(this);
+    this.addDigit = this.addDigit.bind(this);
+    this.setOperation = this.setOperation.bind(this);
 
-  }
-
-  add() {
-    let result = parseInt(this.state.num1) + parseInt(this.state.num2);
-    this.setState({ result: result });
-  }
-
-  subtract() {
-    let result = parseInt(this.state.num1) - parseInt(this.state.num2);
-    this.setState({ result: result });
-  }
-
-  multiply() {
-    let result = parseInt(this.state.num1) * parseInt(this.state.num2);
-    this.setState({ result: result });
-  }
-
-  divide() {
-    let result = parseInt(this.state.num1) / parseInt(this.state.num2);
-    this.setState({ result: result });
   }
 
   clear() {
-    this.setState({ result: 0, num1: '', num2: '' });
+    this.setState({ ...initialState });
   }
 
-  render() {
+  addDigit(digit) {
 
-    let { result, num1, num2 } = this.state;
+    console.log(digit)
+
+    if (digit === "." && this.state.displayValue.includes('.')) {
+
+      // Prevent double decimals
+      return
+
+    }
+
+    const clearDisplay = this.state.displayValue === '0' || this.state.clearDisplay
+
+    /* 
+        Boolean value saying if it's necessary to clear the display
+        True if the currentValue display value is 0 or the variable this.state.clearDisplay is set to true
+    */
+
+    const currentValue = clearDisplay ? '' : this.state.displayValue
+
+    /* 
+        currentValue shows the 'cleared' value or the display value
+    */
+
+    const displayValue = currentValue + digit
+
+    this.setState({ displayValue: displayValue, clearDisplay: false })
+
+    if (digit !== '.') {
+
+      const i = this.state.currentPositionOnValues
+      const newValue = parseFloat(displayValue)
+      const values = [...this.state.values]
+      values[i] = newValue
+      this.setState({ values: values })
+
+    }
+
+  }
+
+  setOperation(operation) {
+
+    if (this.state.currentPositionOnValues === 0) {
+
+      this.setState({ operation: operation, currentPositionOnValues: 1, clearDisplay: true, previousOperation: operation })
+
+    } else if (this.state.previousOperation !== null && this.state.values[1] === null && (operation === '+' || operation === '-' || operation === '*' || operation === '/')) {
+
+      this.setState({ operation: operation, previousOperation: operation })
+
+    } else {
+
+      let originalValue = this.state.originalValue
+
+      if (this.state.values[1] !== null) {
+
+        originalValue = this.state.values[1]
+
+      }
+
+      const equals = operation === '='
+
+      let currentOperation = null;
+
+      if (this.state.operation) {
+
+        currentOperation = this.state.operation
+
+      } else {
+
+        currentOperation = operation
+
+      }
+
+      let previousOperation = this.state.previousOperation;
+
+      if (currentOperation !== '=' && currentOperation !== null) previousOperation = currentOperation
+
+      const values = [...this.state.values]
+
+      if (values[1] === null) this.previousOperation = operation
+
+      switch (currentOperation) {
+
+        case '+':
+          values[0] += values[1]
+          break
+
+        case '-':
+          values[0] -= values[1]
+          break
+
+        case '*':
+          values[0] *= values[1]
+          break
+
+        case '/':
+          values[0] /= values[1]
+          break
+
+        case '=':
+          if (this.state.values[1] === null)
+            this.repeatOperation(values, this.state.originalValue, this.state.previousOperation)
+          break
+
+        default:
+
+          break
+
+      }
+
+      if (isNaN(values[0]) || !isFinite(values[0])) {
+        this.clear()
+        return
+      }
+
+      values[1] = null
+
+      this.setState(
+
+        {
+          displayValue: values[0],
+          operation: equals ? null : operation,
+          currentPositionOnValues: values[0] !== 0 ? 1 : 0,
+          clearDisplay: !equals,
+          values,
+          previousOperation,
+          originalValue
+        }
+
+      )
+
+    }
+
+  }
+
+  repeatOperation(values, originalValue, previousOperation) {
+
+    switch (previousOperation) {
+
+      case '+':
+        values[0] += originalValue
+        break
+
+      case '-':
+        values[0] -= originalValue
+        break
+
+      case '*':
+        values[0] *= originalValue
+        break
+
+      case '/':
+        values[0] /= originalValue
+        break
+
+      default:
+        return
+
+    }
+
+  }
+
+
+  render() {
 
     return (
       <View style={styles.container}>
@@ -60,12 +209,10 @@ class App extends Component {
         </LinearGradient>
         <Text style={styles.head}>Calculator</Text>
         <Calculator
-          add={this.add}
-          subtract={this.subtract}
-          multiply={this.multiply}
-          displayValue={result}
-          divide={this.divide}
-          clear={this.clear}
+          addDigit={() => this.addDigit}
+          clear={() => this.clear}
+          setOperation={() => this.setOperation}
+          displayValue = {this.state.displayValue}
         />
       </View>
     );
