@@ -1,23 +1,23 @@
 import React from "react";
 import { View, StyleSheet, Text, TouchableHighlight } from "react-native";
 
-const Button = (props) => {
+const Button = ({operation, double, triple, executeFunction, label}) => {
 
     let classes = 'button '
-    classes += props.operation ? 'operation' : ''
-    classes += props.double ? 'double' : ''
-    classes += props.triple ? 'triple' : ''
+    classes += operation ? 'operation' : ''
+    classes += double ? 'double' : ''
+    classes += triple ? 'triple' : ''
 
-    if (props.operation) {
+    if (operation) {
 
         return (
 
-            <TouchableHighlight onPress={() => props.executeFunction(props.label)}>
+            <TouchableHighlight onPress={() => executeFunction(label)}>
 
                 <View style={[style.button, style.operation]}>
 
                     <Text style={style.text}>
-                        {props.label}
+                        {label}
                     </Text>
 
                 </View>
@@ -25,15 +25,15 @@ const Button = (props) => {
 
         )
 
-    } else if (props.double) {
+    } else if (double) {
 
         return (
 
-            <TouchableHighlight onPress={() => props.executeFunction(props.label)}>
+            <TouchableHighlight onPress={() => executeFunction(label)}>
                 <View style={[style.button, style.double]}>
 
                     <Text style={style.text}>
-                        {props.label}
+                        {label}
                     </Text>
 
 
@@ -42,15 +42,15 @@ const Button = (props) => {
 
         )
 
-    } else if (props.triple) {
+    } else if (triple) {
 
         return (
 
-            <TouchableHighlight onPress={() => props.executeFunction()}>
+            <TouchableHighlight onPress={() => executeFunction()}>
                 <View style={[style.button, style.triple]}>
 
                     <Text style={style.text}>
-                        {props.label}
+                        {label}
                     </Text>
 
                 </View>
@@ -62,12 +62,12 @@ const Button = (props) => {
 
         return (
 
-            <TouchableHighlight onPress={() => props.executeFunction(props.label)} activeOpacity={0.8}>
+            <TouchableHighlight onPress={() => executeFunction(label)} activeOpacity={0.8}>
                 <View style={[style.button]}>
 
 
                     <Text style={style.text}>
-                        {props.label}
+                        {label}
                     </Text>
 
 

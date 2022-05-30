@@ -2,15 +2,15 @@ import React from 'react';
 import { View } from 'react-native';
 import Interface from './Interface';  
 
-const Calculator = (props) => {
+const Calculator = ({addDigit, clear, displayValue, setOperation}) => {
 
     return (
         <View>
             <Interface 
-                addDigit={props.addDigit} 
-                clear={props.clear} 
-                displayValue={props.displayValue}
-                setOperation={props.setOperation}
+                addDigit={addDigit} 
+                clear={clear} 
+                displayValue={displayValue}
+                setOperation={setOperation}
             />
         </View>
     );
