@@ -209,10 +209,16 @@ class App extends Component {
         </LinearGradient>
         <Text style={styles.head}>Calculator</Text>
         <Calculator
-          addDigit={() => this.addDigit}
-          clear={() => this.clear}
-          setOperation={() => this.setOperation}
-          displayValue = {this.state.displayValue}
+          addDigit={(digit) => {
+            this.addDigit(digit);
+          }}
+          clear={() => {
+            this.clear()
+          }}
+          setOperation={(operation) => {
+            this.setOperation(operation)
+          }}
+          displayValue={this.state.displayValue}
         />
       </View>
     );
