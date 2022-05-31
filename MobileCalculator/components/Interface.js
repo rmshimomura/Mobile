@@ -39,7 +39,7 @@ const style = StyleSheet.create({
     container: {
         
         width: 400,
-        borderRadius: 5,
+        borderRadius: 50,
         overflow: 'hidden',
         position: 'relative',
         justifyContent: 'center',

@@ -28,9 +28,6 @@ const style = StyleSheet.create({
         overflow: 'hidden',
         width: '100%',
 
-        borderColor: '#888',
-        borderWidth: 1,
-        borderStyle: 'solid',
         textAlign: 'right',
     },
 
