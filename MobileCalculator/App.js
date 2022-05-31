@@ -34,28 +34,28 @@ class App extends Component {
 
   addDigit(digit) {
 
+    // Prevent double decimals
     if (digit === "." && this.state.displayValue.includes('.')) {
 
-      // Prevent double decimals
       return
 
     }
-
-    const clearDisplay = this.state.displayValue === '0' || this.state.clearDisplay
 
     /* 
         Boolean value saying if it's necessary to clear the display
         True if the currentValue display value is 0 or the variable this.state.clearDisplay is set to true
         This is the case the user wants to write a new number, or if the user wants to clear the display
     */
+    const clearDisplay = this.state.displayValue === '0' || this.state.clearDisplay
 
-    const currentValue = clearDisplay ? '' : this.state.displayValue
 
     /* 
         currentValue shows the 'cleared' value or the display value
         If the display value is 0, it will be an empty string
         If the display value is not 0, it will be the display value
     */
+    const currentValue = clearDisplay ? '' : this.state.displayValue
+
 
     const displayValue = currentValue + digit
 
@@ -99,7 +99,7 @@ class App extends Component {
       let originalValue = this.state.originalValue
 
       if (this.state.values[1] !== null) {
-
+        // Original value is used if the user presses the equal button and the last operation needs to be repeated
         originalValue = this.state.values[1]
 
       }
@@ -154,12 +154,13 @@ class App extends Component {
           break
 
       }
-
+      // Check if the value is valid or not (preventing 0/0 and other invalid operations)
       if (isNaN(values[0]) || !isFinite(values[0])) {
         this.clear()
         return
       }
 
+      // Restart the second value
       values[1] = null
 
       this.setState(
