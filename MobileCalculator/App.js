@@ -240,26 +240,34 @@ class App extends Component {
 }
 
 const styles = StyleSheet.create({
+  
   container: {
+
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+
   },
   head: {
+
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 20,
     color: 'white',
     zIndex: 100,
     fontFamily: 'monospace',
+
   },
   background: {
+
     position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
     height: '100%',
+
   },
+
 });
 
 export default App;

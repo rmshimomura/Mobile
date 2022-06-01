@@ -6,9 +6,13 @@ const Display = (props) => {
     return (
 
         <View style={[style.display]}>
+            
             <Text style={[style.displayValue]}>
+
                 {props.value}
+
             </Text>
+            
         </View>
 
     )
@@ -27,7 +31,6 @@ const style = StyleSheet.create({
         paddingRight: 5,
         overflow: 'hidden',
         width: '100%',
-
         textAlign: 'right',
     },
 
