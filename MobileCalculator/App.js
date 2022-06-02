@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { Component } from 'react'
 import Calculator from './components/Calculator.js';
-import { LinearGradient } from 'expo-linear-gradient';
 
 const initialState = {
 
@@ -214,12 +213,6 @@ class App extends Component {
     return (
       <View style={styles.container}>
 
-        <LinearGradient
-          colors={['#4b6cb7', '#182848']}
-          style={styles.background}
-          start={[1, 1]} end={[0, 0]}
-        >
-        </LinearGradient>
         <Text style={styles.head}>Calculator</Text>
         <Calculator
           addDigit={(digit) => {
@@ -253,7 +246,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: 'white',
+    color: 'black',
     zIndex: 100,
     fontFamily: 'monospace',
 

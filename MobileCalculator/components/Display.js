@@ -32,6 +32,8 @@ const style = StyleSheet.create({
         overflow: 'hidden',
         width: '100%',
         textAlign: 'right',
+        flexWrap: 'wrap',
+        flexDirection: 'row',
     },
 
     displayValue: {
