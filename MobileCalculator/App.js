@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { Component } from 'react'
-import Calculator from './components/Calculator.js';
+import Calculator from './Components/Calculator.js';
 
 const initialState = {
 
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#0da2ff',
+    backgroundColor: '#486787',
 
   },
   head: {
