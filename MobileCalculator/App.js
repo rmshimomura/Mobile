@@ -90,7 +90,7 @@ class App extends Component {
     } else if (this.state.previousOperation !== null && this.state.values[1] === null && (operation === '+' || operation === '-' || operation === '*' || operation === '/')) {
 
       // The user is changing the operation
-      this.setState({ operation: operation, previousOperation: operation })
+      this.setState({ operation: operation, previousOperation: operation, clearDisplay : true })
 
     } else {
 
