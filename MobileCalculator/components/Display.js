@@ -42,7 +42,7 @@ const style = StyleSheet.create({
         fontSize: 60,
         fontWeight: 'bold',
         paddingRight: 30,
-        fontFamily: 'roboto',
+        fontFamily: 'monospace',
         
     }
     
