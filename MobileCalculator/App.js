@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { Component } from 'react'
-import Calculator from './Components/Calculator.js';
+import Calculator from './components/Calculator.js';
 
 const initialState = {
 
@@ -90,7 +90,7 @@ class App extends Component {
     } else if (this.state.previousOperation !== null && this.state.values[1] === null && (operation === '+' || operation === '-' || operation === '*' || operation === '/')) {
 
       // The user is changing the operation
-      this.setState({ operation: operation, previousOperation: operation })
+      this.setState({ operation: operation, previousOperation: operation, clearDisplay : true })
 
     } else {
 
@@ -165,7 +165,7 @@ class App extends Component {
       this.setState(
 
         {
-          displayValue: values[0],
+          displayValue: String(values[0]),
           operation: equals ? null : operation,
           currentPositionOnValues: 1,
           clearDisplay: !equals,
