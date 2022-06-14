@@ -17,7 +17,7 @@ export default class ViewRecipes extends React.Component {
     }
 
     render() {
-        
+
         const { recipes } = this.props
         return (
             <ScrollView contentContainerStyle={[!recipes.length && { flex: 1 }]}>
@@ -29,16 +29,26 @@ export default class ViewRecipes extends React.Component {
                         recipes.map((item, index) => (
 
                             <TouchableOpacity onPress={() => this.navigate(item)} key={index} >
-                                
+
                                 <View style={styles.recipesContainer}>
                                     <Text style={styles.recipe}>Recipe name: {item.name}</Text>
                                     <Text style={styles.recipe}>Ingredients: {item.ingredients.join(`\n-`)}</Text>
                                     <Text style={styles.recipe}>Upvotes: {item.upvotes}</Text>
+                                    <View style={styles.buttonsContainer}>
+                                        <TouchableOpacity onPress={() => this.props.upvoteRecipe(item)} style={styles.upvote}>
+                                            <Text style={styles.upvoteText}>Upvote this recipe</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.props.downvoteRecipe(item)} style={styles.downvote}>
+                                            <Text style={styles.downvoteText}>Downvote this recipe</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
 
                             </TouchableOpacity>
+
                         ))
                     }
+
                 </View>
             </ScrollView>
         )
@@ -47,10 +57,48 @@ export default class ViewRecipes extends React.Component {
 
 const styles = StyleSheet.create({
     recipesContainer: {
+        position: 'relative',
         padding: 10,
         borderBottomWidth: 2,
         borderBottomColor: '#1976D2'
     },
+
+    buttonsContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-start'
+    },
+
+    upvote: {
+        backgroundColor: '#4CAF50',
+        borderColor: 'black',
+        borderWidth: 1,
+        padding: 10,
+        borderRadius: 5,
+        fontSize: 20,
+
+    },
+
+    downvote: {
+        backgroundColor: '#F44336',
+        borderColor: 'black',
+        borderWidth: 1,
+        padding: 10,
+        borderRadius: 5,
+        fontSize: 20,
+    },
+
+    upvoteText: {
+        color: 'white',
+        fontSize: 20
+    },
+
+    downvoteText: {
+        color: 'white',
+        fontSize: 20
+    },
+
     recipe: {
         fontSize: 20,
     },
