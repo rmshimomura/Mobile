@@ -4,12 +4,13 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Keyboard,
+  Alert
 } from 'react-native'
 
-import * as Random from 'expo-random'
+export default class AddRecipe extends React.Component {
 
-class AddRecipe extends React.Component {
   state = {
     name: '',
     ingredients: [],
@@ -22,17 +23,29 @@ class AddRecipe extends React.Component {
   }
   submit = () => {
 
-    const ingredients = this.state.ingredientsString.split(',').map(ingredient => ingredient.trim())
+    const ingredients = this.state.ingredientsString.split(',')
+    const final_ingredients = ingredients.map(ingredient => ingredient.trim())
+    final_ingredients.forEach(ingredient => {
+      if (ingredient.length > 0) {
+        this.state.ingredients.push(ingredient)
+      }
+    })
+
     this.setState({ ingredients })
 
-    if (this.state.name === '' || !this.state.ingredients) alert('Please complete the recipe form!')
+    if (this.state.name === '' || !this.state.ingredients) {
+      alert('Please complete the recipe form!')
+      return
+    }
     const recipe = {
       name: this.state.name,
       ingredients: this.state.ingredients,
       id: this.props.recipes.length + 1,
       upvotes: 0,
-      comments: []
+      comments: [],
+      new_recipe: true
     }
+
     this.props.addRecipe(recipe)
     this.setState({
       name: '',
@@ -40,6 +53,19 @@ class AddRecipe extends React.Component {
       upvotes: 0,
       ingredientsString: ''
     })
+    Keyboard.dismiss()
+
+    Alert.alert(
+      'Success!',
+      'Recipe added!',
+      [
+        {
+          text: 'Go back',
+          style: 'destructive',
+        },
+
+      ]
+    )
   }
 
   render() {
@@ -98,4 +124,3 @@ const styles = StyleSheet.create({
     height: 50
   }
 })
-export default AddRecipe
