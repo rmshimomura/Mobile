@@ -131,7 +131,6 @@ export default class App extends Component {
 
   sortRecipes = (order) => {
     const recipes = this.state.recipes
-    console.log(order + " !!")
     if(order === 'recent') {
       const sortedRecipes = recipes.sort((a, b) => b.id - a.id)
       this.setState({ recipes: sortedRecipes, order: 'oldest' })
