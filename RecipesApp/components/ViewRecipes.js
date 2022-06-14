@@ -18,39 +18,52 @@ export default class ViewRecipes extends React.Component {
 
     render() {
 
-        const { recipes } = this.props
+        const { recipes, order } = this.props
+
         return (
-            <ScrollView contentContainerStyle={[!recipes.length && { flex: 1 }]}>
-                <View style={[!recipes.length && { justifyContent: 'center', flex: 1 }]}>
-                    {
-                        !recipes.length && <CenterMessage message='No saved recipes!' />
-                    }
-                    {
-                        recipes.map((item, index) => (
+            <View>
 
-                            <TouchableOpacity onPress={() => this.navigate(item)} key={index} >
+                {
+                    
+                    recipes.length > 0 &&
+                    <TouchableOpacity onPress={() => this.props.sortRecipes(order)} style={styles.sortButton}>
+                        <Text style={{ flex: 1, justifyContent: "flex-end", color: "white" }}>Sort recipes : {order} </Text>
+                    </TouchableOpacity> 
 
-                                <View style={styles.recipesContainer}>
-                                    <Text style={styles.recipe}>Recipe name: {item.name}</Text>
-                                    <Text style={styles.recipe}>Ingredients: {item.ingredients.join(`\n-`)}</Text>
-                                    <Text style={styles.recipe}>Upvotes: {item.upvotes}</Text>
-                                    <View style={styles.buttonsContainer}>
-                                        <TouchableOpacity onPress={() => this.props.upvoteRecipe(item)} style={styles.upvote}>
-                                            <Text style={styles.upvoteText}>Upvote this recipe</Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.props.downvoteRecipe(item)} style={styles.downvote}>
-                                            <Text style={styles.downvoteText}>Downvote this recipe</Text>
-                                        </TouchableOpacity>
+                }
+
+                <ScrollView contentContainerStyle={[!recipes.length && { flex: 1 }]}>
+                    <View style={[!recipes.length && { justifyContent: 'center', flex: 1 }]}>
+                        {
+                            !recipes.length && <CenterMessage message='No saved recipes!' />
+                        }
+                        {
+                            recipes.map((item, index) => (
+
+                                <TouchableOpacity onPress={() => this.navigate(item)} key={index} >
+
+                                    <View style={styles.recipesContainer}>
+                                        <Text style={styles.recipe}>Recipe name: {item.name}</Text>
+                                        <Text style={styles.recipe}>Ingredients: {item.ingredients.join(`\n-`)}</Text>
+                                        <Text style={styles.recipe}>Upvotes: {item.upvotes}</Text>
+                                        <View style={styles.buttonsContainer}>
+                                            <TouchableOpacity onPress={() => this.props.upvoteRecipe(item)} style={styles.upvote}>
+                                                <Text style={styles.upvoteText}>Upvote this recipe</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity onPress={() => this.props.downvoteRecipe(item)} style={styles.downvote}>
+                                                <Text style={styles.downvoteText}>Downvote this recipe</Text>
+                                            </TouchableOpacity>
+                                        </View>
                                     </View>
-                                </View>
 
-                            </TouchableOpacity>
+                                </TouchableOpacity>
 
-                        ))
-                    }
+                            ))
+                        }
 
-                </View>
-            </ScrollView>
+                    </View>
+                </ScrollView>
+            </View>
         )
     }
 }
@@ -102,4 +115,15 @@ const styles = StyleSheet.create({
     recipe: {
         fontSize: 20,
     },
+
+    sortButton: {
+        backgroundColor: '#1976D2',
+        borderColor: 'black',
+        borderWidth: 1,
+        padding: 10,
+        borderRadius: 5,
+        fontSize: 20,
+        alignSelf: 'flex-end'
+    }
+
 })

@@ -13,6 +13,7 @@ export default class App extends Component {
 
   state = {
     recipes: [],
+    order: 'oldest'
   }
 
   addRecipe = (recipe) => {
@@ -128,6 +129,18 @@ export default class App extends Component {
 
   }
 
+  sortRecipes = (order) => {
+    const recipes = this.state.recipes
+    console.log(order + " !!")
+    if(order === 'recent') {
+      const sortedRecipes = recipes.sort((a, b) => b.id - a.id)
+      this.setState({ recipes: sortedRecipes, order: 'oldest' })
+    } else if(order === 'oldest') {
+      const sortedRecipes = recipes.sort((a, b) => a.id - b.id)
+      this.setState({ recipes: sortedRecipes, order: 'recent' })
+    }
+  }
+
   render() {
 
     return (
@@ -151,6 +164,8 @@ export default class App extends Component {
               recipes={this.state.recipes}
               upvoteRecipe={this.upvoteRecipe}
               downvoteRecipe={this.downvoteRecipe}
+              sortRecipes={this.sortRecipes}
+              order={this.state.order}
             />}
          </Tab.Screen>
 
