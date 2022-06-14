@@ -25,7 +25,6 @@ class Recipe extends React.Component {
         })
     }
     addComment = () => {
-        console.log(this.state)
         if (this.state.commentText === '' || this.state.commentAuthor === '') return
         const { recipe } = this.props.route.params
         const comment = {

@@ -17,6 +17,7 @@ export default class ViewRecipes extends React.Component {
     }
 
     render() {
+        
         const { recipes } = this.props
         return (
             <ScrollView contentContainerStyle={[!recipes.length && { flex: 1 }]}>
@@ -26,11 +27,15 @@ export default class ViewRecipes extends React.Component {
                     }
                     {
                         recipes.map((item, index) => (
+
                             <TouchableOpacity onPress={() => this.navigate(item)} key={index} >
+                                
                                 <View style={styles.recipesContainer}>
                                     <Text style={styles.recipe}>Recipe name: {item.name}</Text>
+                                    <Text style={styles.recipe}>Ingredients: {item.ingredients.join(`\n-`)}</Text>
                                     <Text style={styles.recipe}>Upvotes: {item.upvotes}</Text>
                                 </View>
+
                             </TouchableOpacity>
                         ))
                     }
