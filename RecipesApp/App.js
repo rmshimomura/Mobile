@@ -18,6 +18,7 @@ export default class App extends Component {
   addRecipe = (recipe) => {
     const recipes = this.state.recipes
     recipes.push(recipe)
+    recipes['newRecipes'] = true
     this.setState({ recipes })
   }
 
@@ -29,11 +30,10 @@ export default class App extends Component {
 
       Alert.alert(
         'Error',
-        'Recepe not found, please try again',
+        'Recipe not found, please try again',
         [
           {
             text: 'Go back',
-            onPress: () => console.log('Go back pressed'),
             style: 'destructive',
           },
 
@@ -58,11 +58,10 @@ export default class App extends Component {
 
       Alert.alert(
         'Error',
-        'Recepe not found, please try again',
+        'Recipe not found, please try again',
         [
           {
             text: 'Go back',
-            onPress: () => console.log('Go back pressed'),
             style: 'destructive',
           },
 
@@ -91,38 +90,38 @@ export default class App extends Component {
     return mostPopularRecipe
   }
 
-  viewRecipes = () => {
-    return this.state.recipes.map(recipe => {
-      return (
-        <View key={recipe.id}>
-          <Text>{recipe.name}</Text>
-          <Text>{recipe.ingredients.join(', ')}</Text>
-          <Text>{recipe.upvotes}</Text>
-        </View>
-      )
-    })
+  returnNumberOfNewRecipes = () => {
+
+    let recipes = this.state.recipes
+    const newRecipes = recipes.filter(recipe => recipe.new_recipe === true)
+    return newRecipes.length
+
   }
 
   render() {
 
     return (
       <NavigationContainer>
-       <Tab.Navigator>
-         <Tab.Screen name="Home Screen">
+       <Tab.Navigator
+       shifting='true'>
+         <Tab.Screen name="Home Screen"
+            options={{tabBarColor: 'orange', tabBarIcon: 'home', tabBarLabel: 'Home'}}
+         >
             {props => <HomeNavScreen {...props}
               recipes={this.state.recipes} 
               returnMostPopularRecipe={this.returnMostPopularRecipe}
               returnMostRecentRecipe={this.returnMostRecentRecipe}/>}
          </Tab.Screen>
          
-         <Tab.Screen name="View recipes">
+         <Tab.Screen name="View recipes"
+            options={{tabBarBadge: this.state.recipes.newRecipes ? this.returnNumberOfNewRecipes() : null, tabBarColor: 'red' ,tabBarIcon: 'view-list'}}>
             {props => <ViewRecipesNavScreen {...props}
               recipes={this.state.recipes}
             />}
          </Tab.Screen>
 
-         <Tab.Screen name="Add recipe">
-            
+         <Tab.Screen name="Add recipe"
+         options={{tabBarColor: 'green', tabBarIcon: 'plus'}}>
             {props => <AddRecipe {...props}
               recipes={this.state.recipes}
               addRecipe={this.addRecipe}
