@@ -33,7 +33,7 @@ export default class AddRecipe extends React.Component {
 
     this.setState({ ingredients })
 
-    if (this.state.name === '' || !this.state.ingredients) {
+    if (this.state.name === '' || !this.state.ingredients || this.state.ingredients.length === 0) {
       alert('Please complete the recipe form!')
       return
     }
@@ -100,7 +100,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#666',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 10
+    alignSelf: 'center',
+    margin: 10,
+    width: '80%',
   },
   buttonText: {
     color: 'white',
@@ -121,6 +123,9 @@ const styles = StyleSheet.create({
     margin: 10,
     backgroundColor: 'white',
     paddingHorizontal: 8,
-    height: 50
+    height: 50,
+    width: '80%',
+    justifyContent: 'center',
+    alignSelf: 'center',
   }
 })
