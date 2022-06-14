@@ -109,13 +109,13 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   heading: {
-    color: 'white',
+    color: 'black',
     fontSize: 40,
     marginBottom: 10,
     alignSelf: 'center'
   },
   container: {
-    backgroundColor: '#1976D2',
+    backgroundColor: 'white',
     flex: 1,
     justifyContent: 'center'
   },
@@ -127,5 +127,7 @@ const styles = StyleSheet.create({
     width: '80%',
     justifyContent: 'center',
     alignSelf: 'center',
+    borderColor: 'black',
+    borderWidth: 1,
   }
 })
