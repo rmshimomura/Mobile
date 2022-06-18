@@ -34,7 +34,7 @@ export default class ViewRecipes extends React.Component {
                     
                     recipes.length > 0 &&
                     <TouchableOpacity onPress={() => this.props.sortRecipes(order)} style={styles.sortButton}>
-                        <Text style={{ flex: 1, justifyContent: "flex-end", color: "white" }}>Sort recipes : {order} </Text>
+                        <Text style={{ justifyContent: "flex-end", color: "white" }}>Sort recipes : {order} </Text>
                     </TouchableOpacity> 
 
                 }
