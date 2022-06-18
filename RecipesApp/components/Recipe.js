@@ -19,7 +19,7 @@ class Recipe extends React.Component {
         comments: [],
         commentAuthor: '',
         commentText: '',
-        rating: '0',
+        rating: '',
     }
     onChangeText = (key, value) => {
         this.setState({
@@ -29,7 +29,7 @@ class Recipe extends React.Component {
 
     onChangeRating = (value) => {
 
-        if(value === 'Insert your rating here...' || value === '') {
+        if (value === 'Insert your rating here...' || value === '') {
             return
         }
 
@@ -75,7 +75,7 @@ class Recipe extends React.Component {
             )
             return
         }
-        
+
         const { recipe } = this.props.route.params
 
         const comment = {
@@ -87,34 +87,63 @@ class Recipe extends React.Component {
         }
 
         recipe.comments.push(comment)
-        this.setState({ commentText: '', commentAuthor: '', comments: recipe.comments, recipe, rating : 0 })
+
+        this.setState({ commentText: '', commentAuthor: '', comments: recipe.comments, recipe, rating: '' })
+    }
+
+    returnOverallRating = () => {
+
+        const { recipe } = this.props.route.params
+
+        let sum = 0
+
+        recipe.comments.forEach(comment => {
+            sum += parseInt(comment.rating)
+        }
+        )
+
+        if (recipe.comments.length === 0) {
+
+            return 0
+
+        } else {
+
+            return sum / recipe.comments.length
+
+        }
+
+        console.log("!")
+
     }
 
     render() {
         const { recipe } = this.props.route.params
         return (
             <View style={styles.container}>
-                
-                <ScrollView contentContainerStyle={[!recipe.comments.length && { flex: 1, zIndex:100 }]} >
+
+                <ScrollView contentContainerStyle={[!recipe.comments.length && { flex: 1, zIndex: 100 }]} >
                     <View style={[styles.commentsContainer, !recipe.comments.length && { flex: 1, justifyContent: 'center' }]}>
                         {
                             !recipe.comments.length && <CenterMessage message='No comments for this recipe!' />
                         }
                         {
-
+                            recipe.comments.length > 0 && <Text style={styles.score}>Overall recipe rating: {parseFloat(this.returnOverallRating()).toFixed(2)}/5</Text>
+                        }
+                        {
                             recipe.comments.map((comment, index) => (
                                 <View key={index} style={styles.commentsContainer}>
-                                    <Text style={styles.comment}>"{comment.commentText}"</Text>
-                                    <Text style={styles.comment}>- {comment.commentAuthor}</Text>
-                                    <Text style ={styles.comment}>{comment.rating}</Text>
+                                    <Text style={styles.comment}>Comment: "{comment.commentText}"</Text>
+                                    <Text style={styles.comment}>Author: {comment.commentAuthor}</Text>
+                                    <Text style={styles.comment}>Rating: {comment.rating}</Text>
                                 </View>
                             ))
+                            
                         }
                     </View>
                 </ScrollView>
 
                 <View style={styles.commentForm}>
-                
+
                     <TextInput
                         onChangeText={val => this.onChangeText('commentAuthor', val)}
                         placeholder='Insert your name here...'
@@ -134,6 +163,7 @@ class Recipe extends React.Component {
                         onChangeText={val => this.onChangeRating(val)}
                         placeholder='Insert your rating here...'
                         style={[styles.input]}
+                        value={this.state.rating}
                         placeholderTextColor='white'
                         keyboardType='numeric'
                     />
@@ -152,7 +182,7 @@ class Recipe extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    
+
     container: {
         flex: 1,
     },
@@ -167,7 +197,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     buttonContainer: {
-        position: 'absolute',
+        position: 'relative',
         bottom: 0,
         left: 0,
         width: '100%'
@@ -194,6 +224,12 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 10
+    },
+    score: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        marginTop: 10
     }
 })
 
