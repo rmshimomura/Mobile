@@ -5,7 +5,6 @@ import {
     StyleSheet,
     TouchableOpacity,
     ScrollView,
-    Dimensions
 } from 'react-native'
 
 import CenterMessage from './CenterMessage'
@@ -18,9 +17,17 @@ export default class ViewRecipes extends React.Component {
 
     render() {
 
-        const { recipes, order } = this.props
+        let { recipes, order } = this.props
+        
+        if (order === 'oldest') {
+            recipes = recipes.sort((a, b) => a.id - b.id)
+        }
+        else if (order === 'recent') {
+            recipes = recipes.sort((a, b) => b.id - a.id)
+        }
 
         return (
+            
             <View>
 
                 {
@@ -38,13 +45,12 @@ export default class ViewRecipes extends React.Component {
                             !recipes.length && <CenterMessage message='No saved recipes!' />
                         }
                         {
-                            recipes.map((item, index) => (
+                            recipes.map((item) => (
 
-                                <TouchableOpacity onPress={() => this.navigate(item)} key={index} >
-
+                                <TouchableOpacity onPress={() => this.navigate(item)} key={item.id} >
                                     <View style={styles.recipesContainer}>
                                         <Text style={styles.recipe}>Recipe name: {item.name}</Text>
-                                        <Text style={styles.recipe}>Ingredients: {item.ingredients.join(`\n-`)}</Text>
+                                        <Text style={styles.recipe}>Ingredients: {'\n-' + item.ingredients.join(`\n-`)}</Text>
                                         <Text style={styles.recipe}>Upvotes: {item.upvotes}</Text>
                                         <View style={styles.buttonsContainer}>
                                             <TouchableOpacity onPress={() => this.props.upvoteRecipe(item)} style={styles.upvote}>

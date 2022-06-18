@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { Component, useState } from 'react'
-import { Alert, Text, TouchableHighlight, View, StyleSheet } from 'react-native';
+import { Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import HomeNavScreen from './components/HomeNavScreen'
@@ -75,7 +75,10 @@ export default class App extends Component {
 
     const specificRecipe = this.state.recipes[index]
     specificRecipe.upvotes++
-    this.setState({ recipes: this.state.recipes })
+    const recipes = this.state.recipes
+    recipes.splice(index, 1)
+    recipes.splice(index, 0, specificRecipe)
+    this.setState({ recipes })
 
   }
 
@@ -104,9 +107,26 @@ export default class App extends Component {
     const specificRecipe = this.state.recipes[index]
     if(specificRecipe.upvotes > 0) {
       specificRecipe.upvotes--
-      this.setState({ recipes: this.state.recipes })
+
+      const recipes = this.state.recipes
+      recipes.splice(index, 1)
+      recipes.splice(index, 0, specificRecipe)
+      this.setState({ recipes })
+
     }
 
+  }
+
+  sortRecipes = (order) => {
+    const recipes = this.state.recipes
+    console.log(order)
+    if(order === 'recent') {
+      const sortedRecipes = recipes.sort((a, b) => b.id - a.id)
+      this.setState({ recipes: sortedRecipes, order: 'oldest' })
+    } else if(order === 'oldest') {
+      const sortedRecipes = recipes.sort((a, b) => a.id - b.id)
+      this.setState({ recipes: sortedRecipes, order: 'recent' })
+    }
   }
 
   returnMostRecentRecipe = () => {
@@ -127,17 +147,6 @@ export default class App extends Component {
     const newRecipes = recipes.filter(recipe => recipe.new_recipe === true)
     return newRecipes.length
 
-  }
-
-  sortRecipes = (order) => {
-    const recipes = this.state.recipes
-    if(order === 'recent') {
-      const sortedRecipes = recipes.sort((a, b) => b.id - a.id)
-      this.setState({ recipes: sortedRecipes, order: 'oldest' })
-    } else if(order === 'oldest') {
-      const sortedRecipes = recipes.sort((a, b) => a.id - b.id)
-      this.setState({ recipes: sortedRecipes, order: 'recent' })
-    }
   }
 
   render() {
