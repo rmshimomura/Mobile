@@ -10,7 +10,7 @@ const ViewRecipesNavScreen = ({ recipes, upvoteRecipe, downvoteRecipe, sortRecip
         <ViewRecipesNav.Screen name="All recipes">
             {props => <ViewRecipes {...props} recipes={recipes} upvoteRecipe={upvoteRecipe} downvoteRecipe={downvoteRecipe} sortRecipes={sortRecipes} order={order}/>}
         </ViewRecipesNav.Screen>
-        <ViewRecipesNav.Screen name="Recipe" options={({ route }) => ({ title: route.params.recipe.name + " comments " })}>
+        <ViewRecipesNav.Screen name="Recipe" options={{title: "Recipe information" }}>
             {props => <Recipe {...props} recipes={recipes}/>}
         </ViewRecipesNav.Screen>
     </ViewRecipesNav.Navigator>

@@ -15,6 +15,8 @@ export default class AddRecipe extends React.Component {
     name: '',
     ingredients: [],
     ingredientsString: '',
+    instructions: [],
+    instructionsString: '',
     upvotes: 0,
     comments: [],
   }
@@ -23,7 +25,7 @@ export default class AddRecipe extends React.Component {
   }
   submit = () => {
 
-    const ingredients = this.state.ingredientsString.split(',')
+    const ingredients = this.state.ingredientsString.split('\n')
     const final_ingredients = ingredients.map(ingredient => ingredient.trim())
     final_ingredients.forEach(ingredient => {
       if (ingredient.length > 0) {
@@ -33,7 +35,17 @@ export default class AddRecipe extends React.Component {
 
     this.setState({ ingredients })
 
-    if (this.state.name === '' || !this.state.ingredients || this.state.ingredients.length === 0) {
+    const instructions = this.state.instructionsString.split('\n')
+    const final_instructions = instructions.map(instruction => instruction.trim())
+    final_instructions.forEach(instruction => {
+      if (instruction.length > 0) {
+        this.state.instructions.push(instruction)
+      }
+    })
+
+    this.setState({ instructions })
+
+    if (this.state.name === '' || !this.state.ingredients || this.state.ingredients.length === 0 || !this.state.instructions || this.state.instructions.length === 0) {
       alert('Please complete the recipe form!')
       return
     }
@@ -43,7 +55,8 @@ export default class AddRecipe extends React.Component {
       id: this.props.recipes.length + 1,
       upvotes: 0,
       comments: [],
-      new_recipe: true
+      new_recipe: true,
+      instructions: this.state.instructions
     }
 
     this.props.addRecipe(recipe)
@@ -51,7 +64,9 @@ export default class AddRecipe extends React.Component {
       name: '',
       ingredients: [],
       upvotes: 0,
-      ingredientsString: ''
+      ingredientsString: '',
+      instructions: [],
+      instructionsString: ''
     })
     Keyboard.dismiss()
 
@@ -77,13 +92,26 @@ export default class AddRecipe extends React.Component {
           onChangeText={val => this.onChangeText('name', val)}
           style={styles.input}
           value={this.state.name}
+          returnKeyType='next'
         />
         <TextInput
-          placeholder='Ingredients (separate by commas)'
+          placeholder='Ingredients (separate by new lines)'
           onChangeText={val => this.onChangeText('ingredientsString', val)}
-          style={styles.input}
+          style={styles.inputIngredients}
           value={this.state.ingredientsString}
+          returnKeyType='none'
+          multiline={true}
         />
+
+        <TextInput
+          placeholder='Instructions (Separated by new lines)'
+          onChangeText={val => this.onChangeText('instructionsString', val)}
+          style={styles.inputInstructions}
+          value={this.state.instructionsString}
+          returnKeyType='none'
+          multiline={true}
+        />
+
         <TouchableOpacity onPress={this.submit}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>Add recipe</Text>
@@ -129,5 +157,28 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderColor: 'black',
     borderWidth: 1,
+  },
+  inputInstructions: {
+    margin: 10,
+    backgroundColor: 'white',
+    paddingHorizontal: 8,
+    height: 200,
+    width: '80%',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+  inputIngredients: {
+    margin: 10,
+    backgroundColor: 'white',
+    paddingHorizontal: 8,
+    height: 200,
+    width: '80%',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    borderColor: 'black',
+    borderWidth: 1,
   }
+
 })
