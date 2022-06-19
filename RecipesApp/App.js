@@ -155,6 +155,34 @@ export default class App extends Component {
 
   }
 
+  deleteRecipe = (recipe) => {
+
+    const index = this.state.recipes.findIndex(runner => runner.id === recipe.id)
+
+    if (index === -1) {
+
+      Alert.alert(
+        'Error',
+        'Recipe not found, please try again',
+        [
+          {
+            text: 'Go back',
+            style: 'destructive',
+          },
+
+        ]
+      )
+        
+      return
+
+    }
+
+    const recipes = this.state.recipes
+    recipes.splice(index, 1)
+    this.setState({ recipes })
+
+  }
+
   render() {
 
     return (
@@ -182,6 +210,7 @@ export default class App extends Component {
               downvoteRecipe={this.downvoteRecipe}
               sortRecipes={this.sortRecipes}
               order={this.state.order}
+              deleteRecipe={this.deleteRecipe}
             />}
          </Tab.Screen>
 

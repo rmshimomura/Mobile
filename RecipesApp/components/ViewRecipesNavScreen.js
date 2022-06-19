@@ -5,11 +5,11 @@ import ViewComments from './ViewComments'
 
 const ViewRecipesNav = createStackNavigator()
 
-const ViewRecipesNavScreen = ({ recipes, upvoteRecipe, downvoteRecipe, sortRecipes, order }) => (
+const ViewRecipesNavScreen = ({ recipes, upvoteRecipe, downvoteRecipe, sortRecipes, order, deleteRecipe }) => (
 
     <ViewRecipesNav.Navigator>
         <ViewRecipesNav.Screen name="All recipes">
-            {props => <ViewRecipes {...props} recipes={recipes} upvoteRecipe={upvoteRecipe} downvoteRecipe={downvoteRecipe} sortRecipes={sortRecipes} order={order}/>}
+            {props => <ViewRecipes {...props} recipes={recipes} upvoteRecipe={upvoteRecipe} downvoteRecipe={downvoteRecipe} sortRecipes={sortRecipes} order={order} deleteRecipe={deleteRecipe}/>}
         </ViewRecipesNav.Screen>
         <ViewRecipesNav.Screen name="View comments" options={{title: "Comments" }}>
             {props => <ViewComments {...props} recipes={recipes}/>}
