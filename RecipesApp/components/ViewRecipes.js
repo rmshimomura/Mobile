@@ -7,10 +7,11 @@ import {
     ScrollView,
 } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
+import { useIsFocused } from '@react-navigation/native';
 
 import CenterMessage from './CenterMessage'
 
-export default class ViewRecipes extends React.Component {
+class ViewRecipes extends React.Component {
 
     state = {
         search: '',
@@ -43,6 +44,12 @@ export default class ViewRecipes extends React.Component {
 
     render() {
 
+        const { isFocused } = this.props;
+
+        if (!isFocused) {
+            return null;
+        }
+
         let { recipes, order } = this.props
         
         if (order === 'oldest') {
@@ -56,17 +63,10 @@ export default class ViewRecipes extends React.Component {
             
             <View style={styles.container}>
 
-                {
-                    
-                    recipes.length > 0 &&
-                    <TouchableOpacity onPress={() => this.props.sortRecipes(order)} style={styles.sortButton}>
-                        <Text style={{ justifyContent: "flex-end", color: "white" }}>Sort recipes : {order} </Text>
-                    </TouchableOpacity> 
-
-                }
-
                 <ScrollView contentContainerStyle={[!recipes.length && { flex: 1 }]}>
+
                     <View style={[!recipes.length && { justifyContent: 'center', flex: 1 }]}>
+                        
                         {
                             !recipes.length && <CenterMessage message='No saved recipes!' />
                         }
@@ -89,6 +89,18 @@ export default class ViewRecipes extends React.Component {
                                         <Text style={styles.searchResultsText}>Search results:</Text>
                                     </View>
                                 </View>
+
+                                {
+                    
+                                    this.state.searchHappened && this.state.recipes.length > 0 &&
+                                    
+                                    <View style={{borderBottomColor : '#1976D2', borderBottomWidth : 1}}>
+                                        <TouchableOpacity onPress={() => this.props.sortRecipes(order)} style={styles.sortButton}>
+                                            <Text style={{ justifyContent: "flex-end", color: "white"}}>Sort recipes : {order} </Text>
+                                        </TouchableOpacity> 
+                                    </View>
+
+                                }
                                 
                                 {
                                     this.state.searchHappened &&
@@ -127,6 +139,20 @@ export default class ViewRecipes extends React.Component {
                                 {
                                     !this.state.searchHappened &&
 
+                                    <View style={{borderBottomColor : '#1976D2', borderBottomWidth : 1}}>
+
+                                        <TouchableOpacity onPress={() => this.props.sortRecipes(order)} style={styles.sortButton}>
+                                            <Text style={{ justifyContent: "flex-end", color: "white"}}>Sort recipes : {order} </Text>
+                                        </TouchableOpacity> 
+
+                                    </View>
+                                
+                                }
+                                
+                                {
+
+                                    !this.state.searchHappened &&
+
                                     recipes.map((item) => (
 
                                         <TouchableOpacity onPress={() => this.navigate(item)} key={item.id} >
@@ -151,12 +177,12 @@ export default class ViewRecipes extends React.Component {
                                     ))
                                 }
 
-
                             </View>
 
                         }
 
                     </View>
+
                 </ScrollView>
             </View>
         )
@@ -174,8 +200,9 @@ const styles = StyleSheet.create({
     buttonsContainer: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        marginTop: 10,
+        marginBottom: 10
     },
 
     upvote: {
@@ -185,7 +212,8 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         fontSize: 20,
-
+        width: '33%'
+        
     },
 
     downvote: {
@@ -195,16 +223,17 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         fontSize: 20,
+        width: '33%'
     },
 
     upvoteText: {
         color: 'white',
-        fontSize: 20
+        fontSize: 15
     },
 
     downvoteText: {
         color: 'white',
-        fontSize: 20
+        fontSize: 15
     },
 
     recipe: {
@@ -218,7 +247,10 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         fontSize: 20,
-        alignSelf: 'flex-end'
+        alignSelf: 'flex-start',
+        width: '31.5%',
+        marginLeft: 10,
+        marginBottom: 10
     },
     container: {
         backgroundColor: 'white',
@@ -234,6 +266,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         alignSelf: 'flex-start',
         width: '60%',
+        marginLeft: 10
         
     },
     searchButton: {
@@ -260,10 +293,11 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         fontSize: 20,
         alignSelf: 'flex-start',
+        width: '33%'
     },
     deleteText: {
         color: 'white',
-        fontSize: 20
+        fontSize: 15
     },
     searchResults: {
         flex: 1,
@@ -278,3 +312,15 @@ const styles = StyleSheet.create({
     }
 
 })
+
+export default function (props) {
+
+    const isFocused = useIsFocused();
+
+    if (!isFocused) {
+        return null;
+    }
+
+    return <ViewRecipes {...props} isFocused={isFocused} />
+
+}

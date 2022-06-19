@@ -203,7 +203,7 @@ export default class App extends Component {
          </Tab.Screen>
          
          <Tab.Screen name="View recipes"
-            options={{tabBarBadge: this.state.recipes.newRecipes ? this.returnNumberOfNewRecipes() : null, tabBarColor: 'darkblue' ,tabBarIcon: 'view-list'}}>
+            options={{tabBarBadge: this.state.recipes.newRecipes && this.returnNumberOfNewRecipes() > 0 ? this.returnNumberOfNewRecipes() : null, tabBarColor: 'darkblue' ,tabBarIcon: 'view-list'}}>
             {props => <ViewRecipesNavScreen {...props}
               recipes={this.state.recipes}
               upvoteRecipe={this.upvoteRecipe}
