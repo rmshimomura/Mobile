@@ -16,8 +16,9 @@ export default class Home extends React.Component {
             <View style={styles.container}>
                 
                 <Text style={styles.headText}>Most recent recipe: {this.props.returnMostRecentRecipe() ? this.props.returnMostRecentRecipe().name : 'No recipes yet'}</Text>
-                <Text style={styles.headText}>Most popular recipe: {this.props.returnMostPopularRecipe() ? this.props.returnMostPopularRecipe().name : 'No recipes yet'}</Text>
-                
+                <Text style={styles.headText}>Most popular recipe: {this.props.returnMostPopularRecipe() ? this.props.returnMostPopularRecipe().name + " (" + this.props.returnMostPopularRecipe().upvotes + " upvotes)" : 'No recipes yet'}</Text>
+                <Text style={styles.headText}>Top rated recipe: {this.props.returnTopRatedRecipe() ? this.props.returnTopRatedRecipe().name + " (" + this.props.returnTopRatedRecipe().rating + "/5 stars)" : 'No recipes yet'}</Text>
+
             </View>
 
         )

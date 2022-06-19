@@ -3,7 +3,7 @@ import Home from './Home'
 
 const HomeNav = createStackNavigator()
 
-const HomeNavScreen = ({recipes, returnMostRecentRecipe, returnMostPopularRecipe}) => (
+const HomeNavScreen = ({recipes, returnMostRecentRecipe, returnMostPopularRecipe, returnTopRatedRecipe}) => (
 
     <HomeNav.Navigator>
         <HomeNav.Screen name="Home">
@@ -12,6 +12,7 @@ const HomeNavScreen = ({recipes, returnMostRecentRecipe, returnMostPopularRecipe
              recipes={recipes}
              returnMostPopularRecipe={returnMostPopularRecipe} 
              returnMostRecentRecipe={returnMostRecentRecipe}
+             returnTopRatedRecipe={returnTopRatedRecipe}
             />}    
         </HomeNav.Screen>
     </HomeNav.Navigator>

@@ -19,6 +19,7 @@ export default class AddRecipe extends React.Component {
     instructionsString: '',
     upvotes: 0,
     comments: [],
+    rating: '',
   }
   onChangeText = (key, value) => {
     this.setState({ [key]: value })
@@ -56,7 +57,8 @@ export default class AddRecipe extends React.Component {
       upvotes: 0,
       comments: [],
       new_recipe: true,
-      instructions: this.state.instructions
+      instructions: this.state.instructions,
+      rating: 0
     }
 
     this.props.addRecipe(recipe)
@@ -113,7 +115,7 @@ export default class AddRecipe extends React.Component {
         />
 
         <TouchableOpacity onPress={this.submit}>
-          <View style={styles.button}>
+          <View style={styles.buttonSubmit}>
             <Text style={styles.buttonText}>Add recipe</Text>
           </View>
         </TouchableOpacity>
@@ -126,6 +128,15 @@ const styles = StyleSheet.create({
   button: {
     height: 50,
     backgroundColor: '#666',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    margin: 10,
+    width: '80%',
+  },
+  buttonSubmit: {
+    height: 50,
+    backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',

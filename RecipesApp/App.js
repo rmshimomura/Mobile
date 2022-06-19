@@ -141,6 +141,13 @@ export default class App extends Component {
     return mostPopularRecipe
   }
 
+  returnTopRatedRecipe = () => {
+
+    const recipes = this.state.recipes
+    const topRatedRecipe = recipes.sort((a, b) => b.rating - a.rating)[0]
+    return topRatedRecipe
+  }
+
   returnNumberOfNewRecipes = () => {
 
     let recipes = this.state.recipes
@@ -163,7 +170,9 @@ export default class App extends Component {
             {props => <HomeNavScreen {...props}
               recipes={this.state.recipes} 
               returnMostPopularRecipe={this.returnMostPopularRecipe}
-              returnMostRecentRecipe={this.returnMostRecentRecipe}/>}
+              returnMostRecentRecipe={this.returnMostRecentRecipe}
+              returnTopRatedRecipe={this.returnTopRatedRecipe}/>
+            }
          </Tab.Screen>
          
          <Tab.Screen name="View recipes"
