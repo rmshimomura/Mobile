@@ -107,7 +107,6 @@ export default class Recipe extends React.Component {
                 sum += parseInt(comment.rating)
             }
             )
-            console.log(sum)
             recipe.rating = sum / recipe.comments.length
         }
 
