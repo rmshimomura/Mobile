@@ -186,7 +186,7 @@ export default class App extends Component {
          </Tab.Screen>
 
          <Tab.Screen name="Add recipe"
-         options={{tabBarColor: 'red', tabBarIcon: 'plus'}}>
+         options={{tabBarColor: 'green', tabBarIcon: 'plus'}}>
             {props => <AddRecipe {...props}
               recipes={this.state.recipes}
               addRecipe={this.addRecipe}

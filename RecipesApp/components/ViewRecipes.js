@@ -28,7 +28,7 @@ export default class ViewRecipes extends React.Component {
 
         return (
             
-            <View>
+            <View style={styles.container}>
 
                 {
                     
@@ -129,6 +129,11 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         fontSize: 20,
         alignSelf: 'flex-end'
-    }
+    },
+    container: {
+        backgroundColor: 'white',
+        flex: 1,
+        justifyContent: 'center'
+    },
 
 })

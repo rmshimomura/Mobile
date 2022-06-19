@@ -63,7 +63,9 @@ class Recipe extends React.Component {
 const styles = StyleSheet.create({
 
     container: {
+        backgroundColor: 'white',
         flex: 1,
+        justifyContent: 'center'
     },
     recipeInfo: {
         padding: 10,
@@ -95,14 +97,14 @@ const styles = StyleSheet.create({
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: '#1976D2',
+        backgroundColor: 'white',
         padding: 10,
-        borderTopColor: '#1976D2',
+        borderTopColor: 'black',
         borderTopWidth: 2,
         alignItems: 'center'
     },
     viewCommentText: {
-        color: 'white',
+        color: 'black',
         fontSize: 20,
         fontWeight: 'bold'
     }

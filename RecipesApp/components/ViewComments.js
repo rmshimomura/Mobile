@@ -149,25 +149,19 @@ export default class Recipe extends React.Component {
 
                 <View style={styles.commentForm}>
 
-                    <View style={styles.commentTitle}>
-
-                        <Text style={styles.commentFormText}>Add comment</Text>
-
-                    </View>
-
                     <TextInput
                         onChangeText={val => this.onChangeText('commentAuthor', val)}
                         placeholder='Insert your name here...'
                         value={this.state.commentAuthor}
                         style={styles.input}
-                        placeholderTextColor='white'
+                        placeholderTextColor='black'
                     />
                     <TextInput
                         onChangeText={val => this.onChangeText('commentText', val)}
                         placeholder='Insert your comment here...'
                         value={this.state.commentText}
                         style={[styles.input]}
-                        placeholderTextColor='white'
+                        placeholderTextColor='black'
                     />
 
                     <TextInput
@@ -175,7 +169,7 @@ export default class Recipe extends React.Component {
                         placeholder='Insert your rating here...([0-5])'
                         style={[styles.input]}
                         value={this.state.rating}
-                        placeholderTextColor='white'
+                        placeholderTextColor='black'
                         keyboardType='numeric'
                     />
 
@@ -196,32 +190,44 @@ export default class Recipe extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: 'white',
         flex: 1,
+        justifyContent: 'center'
     },
     input: {
         height: 50,
-        backgroundColor: '#1976D2',
-        color: 'white',
+        backgroundColor: 'white',
+        color: 'black',
         paddingHorizontal: 8,
         position: 'relative',
         width: '100%',
-        borderBottomColor: 'black',
-        borderBottomWidth: 1,
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 10,
+        marginBottom: 10
+
     },
     buttonContainer: {
         position: 'relative',
         bottom: 0,
         left: 0,
-        width: '100%'
+        width: '100%',
     },
     button: {
         height: 50,
-        backgroundColor: '#1976D2',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: 'black',
+        borderRadius: 10,
+        backgroundColor: '#86b052',
+
     },
     buttonText: {
-        color: 'white'
+        color: 'black',
+        fontSize: 20,
+        fontWeight: 'bold',
+
     },
     commentForm: {
         width: '100%',
@@ -231,7 +237,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         justifyContent: 'flex-end',
         alignItems: 'center',
-        backgroundColor: '#1976D2',
+        padding: 10,
     },
     score: {
         fontSize: 20,
@@ -273,7 +279,7 @@ const styles = StyleSheet.create({
     commentTitle: {
         position: 'relative',
         padding: 10,
-        borderColor: '#1976D2',
+        borderColor: 'black',
         borderWidth: 2,
         margin: 10,
         width: '50%'   

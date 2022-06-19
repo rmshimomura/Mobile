@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   },
   buttonSubmit: {
     height: 50,
-    backgroundColor: 'red',
+    backgroundColor: 'green',
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
