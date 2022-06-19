@@ -5,11 +5,17 @@ import {
     StyleSheet,
     Dimensions
 } from 'react-native'
+import { useIsFocused } from '@react-navigation/native';
 
-
-export default class Home extends React.Component {
+class Home extends React.Component {
 
     render() {
+        
+        const { isFocused } = this.props;
+
+        if (!isFocused) {
+            return null;
+        }
 
         return (
 
@@ -41,3 +47,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     }
 })
+
+export default function(props) {
+    const isFocused = useIsFocused();
+
+    if (!isFocused) {
+        return null;
+    }
+    return <Home {...props} isFocused={isFocused}/>;
+}
