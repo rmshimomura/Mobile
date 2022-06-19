@@ -50,7 +50,6 @@ export default class ViewRecipes extends React.Component {
                                 <TouchableOpacity onPress={() => this.navigate(item)} key={item.id} >
                                     <View style={styles.recipesContainer}>
                                         <Text style={styles.recipe}>Recipe name: {item.name}</Text>
-                                        <Text style={styles.recipe}>Ingredients: {'\n-' + item.ingredients.join(`\n-`)}</Text>
                                         <Text style={styles.recipe}>Upvotes: {item.upvotes}</Text>
                                         <View style={styles.buttonsContainer}>
                                             <TouchableOpacity onPress={() => this.props.upvoteRecipe(item)} style={styles.upvote}>
